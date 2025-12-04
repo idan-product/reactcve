@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
-import pkg from "@/package.json";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export async function GET() {
+  const pkgPath = join(process.cwd(), "package.json");
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
+  
   return NextResponse.json({
     ok: true,
     node: process.versions.node,
